@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TwitterRed</title>
+    <link rel="icon" href="http://epicenternetwork.eu/wp-content/uploads/2015/10/Twitter_bird_logo.png">
+    <!-- Styles -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+    <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='mystyle.css')}}" />
+    <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+</head>
+
+<body>
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-10">
+                    <h1 class="tr-title">
+                        TwitterRed
+                    </h1>
+                    <p class="subtitle">
+                        A complete replica of the twitter app with modified features
+                    </p>
+                </div>
+                <div class="column is-1 has-background-danger-dark has-text-white p-5 m-3 "
+                    style="border-radius: 21px;text-decoration: none;">
+                    <span>Hi {{session.username}}!!</span><br />
+                    <a href="{{ url_for('logout') }}" style="color: white;" class="btn"><b>Logout</b> </a>
+                </div>
+            </div>
+            <div class="box">
+                <div class="control">
+                    <form id="searchForm" class="form-inline" method="GET" action="{{ url_for('home') }}">
+                        <input type="hidden" id="formFilter" name="filter" value="recent">
+                        <input type="hidden" id="formcount" name="count" value="10">
+                        <input id="formSearch" class="input tr-input" type="search" name="query"
+                            placeholder="Search by keyword" />
+                        <i id="searchTweet" data-feather="search"></i>
+                    </form>
+                    <form id="formDownload" action="/download" method="POST">
+                        <button type="submit" style="background: white;border: 0px solid black;margin-left: 90%;">
+                            <i id="downloadFile" data-feather="twitter" style="color: red;cursor: pointer;border: none;
+                                background: white;"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="columns">
+                <div class="column is-one-quarter">
+                    <nav class="panel left-color-tile">
+                        <p class="panel-heading">
+                            Filter By -
+                        </p>
+                        <div class="panel-block pl-5 ">
+                            <label class="radio tr-radio-input">
+                                <input type="radio" name="filter" class="filter" value="recent" />
+                                Recent
+                            </label>
+                        </div>
+                        <div class="panel-block pl-5 ">
+                            <label class="radio tr-radio-input">
+                                <input type="radio" name="filter" class="filter" value="popular" />
+                                Popular
+                            </label>
+                        </div>
+                        <div class="panel-block pl-5 ">
+                            <label class="radio tr-radio-input">
+                                <input type="radio" name="filter" class="filter" value="mixed" />
+                                Mixed
+                            </label>
+                        </div>
+                        <!-- <div class="panel-block pl-5">
+                            <label class="radio tr-radio-input">
+                                <input type="radio" name="filter" class="filter" value="likes" />
+                                Most Likes
+                            </label>
+                        </div>
+                        <div class="panel-block pl-5">
+                            <label class="radio tr-radio-input">
+                                <input type="radio" name="filter" class="filter" value="verified" />
+                                Celebs(Verified Only)
+                            </label>
+                        </div>
+                        <div class="panel-block pl-5">
+                            <label class="radio tr-radio-input">
+                                <input type="radio" name="filter" class="filter" value="retweets" />
+                                Most Retweets
+                            </label>
+                        </div> -->
+                    </nav>
+                    <nav class="panel left-color-tile">
+                        <p class="panel-heading">
+                            Retrieve -
+                        </p>
+                        <div class="panel-block pl-5 ">
+                            <label class="radio tr-radio-input">
+                                <input type="number" id="countId" name="count" value="10"
+                                    style="padding: 1px;width: 20%;font-size: 13px;font-weight: 700;" />
+                                Records
+                            </label>
+                        </div>
+
+                    </nav>
+                </div>
+                <div class="column">
+                    {% for tweet in tweets %}
+                    <div class="card mb-5">
+                        <div class="card-content" style="min-height: 200px;">
+                            <div class="content">
+                                <div class="columns is-gapless">
+                                    <div class="column is-1">
+                                        <div class="has-text-centered">
+                                            <i class="tr-w100" data-feather="twitter" style="color: red;"></i>
+                                        </div>
+                                        <div class="has-text-centered">
+                                            <i class="tr-w100" data-feather="heart"
+                                                style="color: rgb(235, 84, 109);"></i>
+                                            <div class="has-text-centered tr-icons">
+                                                <b>
+                                                    {{
+                                                    tweet._json.get('retweeted_status').get('favorite_count') if
+                                                    tweet._json.get('retweeted_status') else tweet.favorite_count
+                                                    }}
+                                                </b>
+                                            </div>
+                                        </div>
+                                        <div class="has-text-centered">
+                                            <i class="tr-w100" data-feather="refresh-cw"
+                                                style="color: rgb(64, 64, 255);"></i>
+                                            <div class="has-text-centered tr-icons">
+                                                <b>{{tweet.retweet_count}}</b>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="column is-11">
+                                        <b>Tweet:</b> <small class="has-text-grey-light">
+                                            @<time datetime="2016-1-1">{{tweet._json.created_at[:-10]}}</time>
+                                        </small>
+                                        <br />
+                                        <!-- tweet._json.get('retweeted_status').text
+                                        if tweet._json.get('retweeted_status') else -->
+                                        {{
+                                        tweet._json.text
+                                        }}
+                                        <br>
+                                    </div>
+                                    <div class="column"></div>
+                                </div>
+                                <div class="media is-pulled-right tr-media">
+                                    <div class="media-right">
+                                        <figure class="image is-48x48">
+                                            <!-- tweet._json.get('retweeted_status')['user'].profile_image_url
+                                            if tweet._json.get('retweeted_status') else -->
+                                            <img id="tr-image" class="is-rounded" src="{{
+                                                    tweet._json['user'].profile_image_url                 
+                                                }}" alt="Placeholder image">
+                                        </figure>
+                                    </div>
+                                    <div class="media-content">
+                                        <p class="title is-5 goToLink" data-name="{{tweet._json['user'].screen_name}}" style="cursor: pointer;">
+                                            <!-- tweet._json.get('retweeted_status')['user'].screen_name
+                                            if tweet._json.get('retweeted_status') else -->
+                                            {{
+                                            tweet._json['user'].screen_name
+                                            }}
+                                        </p>
+                                        <!-- <p class="subtitle is-6">@{{
+                                            tweet._json.get('retweeted_status')['user'].screen_name
+                                            if tweet._json.get('retweeted_status') else
+                                            tweet._json['user'].name }}</p> -->
+                                        <p class="subtitle is-6">@{{
+                                            tweet._json['user'].name }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                    <div class="card mb-5">
+                        <div class="card-body">
+                            <div class="card-text">
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        feather.replace()
+        $(document).ready(function () {
+            var error = '{{error}}';
+            if (error) {
+                alert(error);
+                $('#formSearch').focus();
+            }
+
+            $(document).on('click', '.goToLink', function () {
+                var name = $(this).data('name');
+                window.open('/profile/' + name, '_blank');
+            });
+
+            $(document).on('click', '#searchTweet', function () {
+                $('#searchForm').submit();
+            });
+
+            $(document).on('change', '#countId', function () {
+                $('#formcount').val($(this).val());
+            });
+
+            $(document).on('change', '.filter', function () {
+                $('#formFilter').val($(this).val());
+            });
+
+            $(document).on('click', '#downloadFile', function () {
+                // alert('!!')
+                $('#formDownload').submit();
+            });
+
+        })
+    </script>
+</body>
+
+</html>

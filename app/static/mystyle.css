@@ -1,0 +1,62 @@
+@font-face {
+    font-family: QueenSantana;
+    src: url('QueenSantanaBold.otf');
+    font-weight: bold;
+}
+
+.tr-w100 {
+    width: 100%;
+}
+
+.tr-icons {
+    line-height: 0;
+    padding-bottom: 10px;
+}
+
+.tr-media {
+    position: absolute;
+    left: 65%;
+    bottom: 20px;
+}
+
+.tr-title {
+    font-size: 50px;
+    /* font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
+    font-family: QueenSantana;
+    color: rgb(255, 46, 46);
+}
+
+.tr-input {
+    padding: 20px;
+    width: 90%;
+    margin: auto;
+}
+
+.feather {
+    height: 42px;
+    padding: 7px;
+    width: 50px;
+    stroke: currentColor;
+    stroke-width: 3px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.tr-radio-input {
+    height: 20px;
+}
+
+.left-color-tile>div {
+    border-left: 4px solid red;
+}
+
+.left-color-tile>div:hover {
+    border-left: 4px solid darkred;
+    background-color: lightgrey;
+}
+
+#tr-image {
+    height: 50px;
+    width: 50px;
+    object-fit: cover;
+}

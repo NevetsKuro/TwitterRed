@@ -1,0 +1,89 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>TwitterRed</title>
+    <link rel="icon" href="http://epicenternetwork.eu/wp-content/uploads/2015/10/Twitter_bird_logo.png">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Styles -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+    <!-- <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='mystyle.css')}}" /> -->
+    <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+</head>
+
+<body></br></br></br></br></br>
+    <div align="center">
+        <div align="center" class="border">
+
+            <div class="columns is-mobile">
+                <div class="column is-4 is-offset-4">
+                    <div class="card">
+                        <div class="card-content">
+                            <p class="title" style="text-align: left;">
+                                Register
+                            </p>
+                            <div class="content">
+                                <form action="{{ url_for('register') }}" method="post"  style="text-align: left;">
+                                    <div class="msg">{{ msg }}</div>
+                                    <div class="field">
+                                        <p class="control has-icons-left has-icons-right">
+                                            <label class="label">Email</label>
+                                            <input class="input" name="email" type="email"
+                                                placeholder="e.g. dummy@gmail.com">
+                                            <span class="icon is-small is-left">
+                                                <i class="fas fa-envelope"></i>
+                                            </span>
+                                            <span class="icon is-small is-right">
+                                                <i class="fas fa-check"></i>
+                                            </span>
+                                        </p>
+                                    </div>
+                                    <div class="field">
+                                        <label class="label">Username</label>
+                                        <p class="control has-icons-left has-icons-right">
+                                            <input class="input" name="username" type="text"
+                                                placeholder="e.g. John Doe">
+                                            <span class="icon is-small is-left">
+                                                <i class="fas fa-user"></i>
+                                            </span>
+                                            <span class="icon is-small is-right">
+                                                <i class="fas fa-check"></i>
+                                            </span>
+                                        </p>
+                                    </div>
+                                    <div class="field">
+                                        <label class="label">Password</label>
+                                        <p class="control has-icons-left">
+                                            <input class="input" name="password" type="password"
+                                                placeholder="Enter Your Password">
+                                            <span class="icon is-small is-left">
+                                                <i class="fas fa-lock"></i>
+                                            </span>
+                                        </p>
+                                    </div>
+                                    <div class="field">
+                                        <p class="control">
+                                            <button type="submit" class="button is-success">
+                                                Sign Up
+                                            </button>
+                                        </p>
+                                    </div>
+
+                                    </br>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <p class="bottom" style="text-align: center;">Already have an account? <a class="bottom" href="{{url_for('login')}}"> Sign In here</a>
+            </p>
+        </div>
+    </div>
+</body>
+
+</html>
