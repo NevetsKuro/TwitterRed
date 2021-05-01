@@ -7,8 +7,8 @@ import json
 import io
 import re
 import requests
-from flask_session import Session
 import mysql.connector
+# from flask_session import Session
 
 import nltk
 from nltk.corpus import stopwords
@@ -38,9 +38,10 @@ def create_app(test_config=None):
     # create and configure the app
 
     app = Flask(__name__, instance_relative_config=True)
+    app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
     app.config["SESSION_PERMANENT"] = False
     app.config["SESSION_TYPE"] = "filesystem"
-    Session(app)
+    # Session(app)
 
     # app.config.from_mapping(
     #     SECRET_KEY='dev',
@@ -77,16 +78,17 @@ def create_app(test_config=None):
 
     @app.route("/download", methods=["POST"])
     def download():
-        csv = session.get("df") if "df" in session else ""
+        return 'Whatsup Egghead!'
+        # csv = session.get("df") if "df" in session else ""
 
-        buf_str = io.StringIO(csv)
+        # buf_str = io.StringIO(csv)
 
-        buf_byt = io.BytesIO(buf_str.read().encode("utf-8"))
+        # buf_byt = io.BytesIO(buf_str.read().encode("utf-8"))
 
-        return send_file(buf_byt,
-                         mimetype="text/csv",
-                         as_attachment=True,
-                         attachment_filename="tweets.csv")
+        # return send_file(buf_byt,
+        #                  mimetype="text/csv",
+        #                  as_attachment=True,
+        #                  attachment_filename="tweets.csv")
 
     @app.route('/home')
     def home():
