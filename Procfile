@@ -1,1 +1,1 @@
-web: flask run
+web: FLASK_APP=development flask run
