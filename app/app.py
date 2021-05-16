@@ -37,6 +37,7 @@ def FindMaxLength(lst):
 def create_app(test_config=None):
     # create and configure the app
 
+    session.clear()
     app = Flask(__name__, instance_relative_config=True)
     app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
     app.config["SESSION_PERMANENT"] = False
@@ -145,8 +146,8 @@ def create_app(test_config=None):
         # public_tweets = json.dumps([status._json for status in public_tweets])
         # print(public_tweets)
 
-        df = pd.DataFrame(public_tweets)
-        session["df"] = df.to_csv(index=False, header=True, sep=";")
+        # df = pd.DataFrame(public_tweets)
+        # session["df"] = df.to_csv(index=False, header=True, sep=";")
 
         # print(bool(session.get("df")))
         return render_template('home.html', tweets=public_tweets)
