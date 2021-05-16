@@ -1,1 +1,1 @@
-web: FLASK_APP=development flask run
+web: gunicorn wsgi:app
