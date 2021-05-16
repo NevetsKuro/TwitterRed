@@ -160,10 +160,10 @@ def create_app(test_config=None):
             username = request.form['username']
             password = request.form['password']
             mydb = mysql.connect(
-                host="localhost",
-                user="root",
-                password="Steven@1996",
-                database="bookstore",
+                host="sql6.freemysqlhosting.net",
+                user="sql6412839",
+                password="7dUuXcUq5P",
+                database="sql6412839",
                 auth_plugin='mysql_native_password'
             )
             cursor = mydb.cursor()
@@ -200,10 +200,11 @@ def create_app(test_config=None):
             password = request.form['password']
             email = request.form['email']
             mydb = mysql.connect(
-                host="localhost",
-                user="root",
-                password="Steven@1996",
-                database="bookstore", auth_plugin='mysql_native_password'
+                host="sql6.freemysqlhosting.net",
+                user="sql6412839",
+                password="7dUuXcUq5P",
+                database="sql6412839",
+                auth_plugin='mysql_native_password'
             )
             cursor = mydb.cursor()
             cursor.execute(
