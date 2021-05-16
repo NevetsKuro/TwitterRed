@@ -37,8 +37,8 @@ def FindMaxLength(lst):
 def create_app(test_config=None):
     # create and configure the app
 
-    session.clear()
     app = Flask(__name__, instance_relative_config=True)
+    
     app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
     app.config["SESSION_PERMANENT"] = False
     app.config["SESSION_TYPE"] = "filesystem"
