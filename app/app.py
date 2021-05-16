@@ -16,7 +16,7 @@ from nltk.corpus import stopwords
 # run usi
 # .\virtual\Scripts\activate.bat
 # set FLASK_ENV=development
-
+# flask run
 
 # twitter keys
 consumer_key = 'Ey08FlTmt72rChOt0hxg1f6Bu'
