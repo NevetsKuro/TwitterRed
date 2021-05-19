@@ -8,7 +8,8 @@ import io
 import re
 import requests
 import mysql.connector
-# from flask_session import Session
+from flask_session import Session
+import copy
 
 import nltk
 from nltk.corpus import stopwords
@@ -39,10 +40,11 @@ def create_app(test_config=None):
 
     app = Flask(__name__, instance_relative_config=True)
     
-    app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+    # app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+    app.secret_key = 'dev'
     app.config["SESSION_PERMANENT"] = False
     app.config["SESSION_TYPE"] = "filesystem"
-    # Session(app)
+    Session(app)
 
     # app.config.from_mapping(
     #     SECRET_KEY='dev',
@@ -79,17 +81,20 @@ def create_app(test_config=None):
 
     @app.route("/download", methods=["POST"])
     def download():
-        return 'Whatsup Egghead!'
-        # csv = session.get("df") if "df" in session else ""
+        # return 'Whatsup Egghead!'
+        csv = session.get("df") if "df" in session else ""
+        # print(csv)
+        if(csv!=""):
+            buf_str = io.StringIO(csv)
 
-        # buf_str = io.StringIO(csv)
+            buf_byt = io.BytesIO(buf_str.read().encode("utf-8"))
 
-        # buf_byt = io.BytesIO(buf_str.read().encode("utf-8"))
-
-        # return send_file(buf_byt,
-        #                  mimetype="text/csv",
-        #                  as_attachment=True,
-        #                  attachment_filename="tweets.csv")
+            return send_file(buf_byt,
+                            mimetype="text/csv",
+                            as_attachment=True,
+                            attachment_filename="tweets.csv")
+        else:
+            return "Kindly make a search first"
 
     @app.route('/home')
     def home():
@@ -146,10 +151,33 @@ def create_app(test_config=None):
         # public_tweets = json.dumps([status._json for status in public_tweets])
         # print(public_tweets)
 
-        # df = pd.DataFrame(public_tweets)
-        # session["df"] = df.to_csv(index=False, header=True, sep=";")
+        json_array = []
+        temp = copy.deepcopy(public_tweets)
+        for tweet in temp:
+            json = tweet._json
+            json.pop('contributors', None)
+            json.pop('coordinates', None)
+            json.pop('entities', None)
+            json.pop('metadata', None)
+            json.pop('retweeted_status', None)
+            json.pop('extended_entities', None)
+            json.pop('in_reply_to_status_id', None)
+            json.pop('in_reply_to_status_id_str', None)
+            json.pop('in_reply_to_user_id', None)
+            json.pop('in_reply_to_user_id_str', None)
+            json.pop('in_reply_to_screen_name', None)
+            json.pop('in_reply_to_screen_name', None)
+            json.pop('geo', None)
+            json.pop('place', None)
+            json['user_name'] = json['user']['name']
+            json['twitter_name'] = json['user']['screen_name']
+            json.pop('user', None)
+            json_array.append(json)
+            
+        df = pd.DataFrame(json_array)
+        df.fillna('-',inplace=True)
+        session["df"] = df.to_csv(index=True, header=True, sep=",")
 
-        # print(bool(session.get("df")))
         return render_template('home.html', tweets=public_tweets)
 
     @app.route('/', methods=['GET'])
@@ -159,6 +187,10 @@ def create_app(test_config=None):
         if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
             username = request.form['username']
             password = request.form['password']
+            # Server
+            # https://www.freemysqlhosting.net/account/
+            # un: stevenferns96@gmail.com
+            # pwd: 34Tjq#kYCjxfjUu
             mydb = mysql.connect(
                 host="sql6.freemysqlhosting.net",
                 user="sql6412839",
@@ -166,6 +198,7 @@ def create_app(test_config=None):
                 database="sql6412839",
                 auth_plugin='mysql_native_password'
             )
+            
             cursor = mydb.cursor()
             sql = "SELECT * FROM users WHERE username = '" + \
                 username+"' AND password = '"+password+"'"

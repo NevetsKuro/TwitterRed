@@ -62,6 +62,10 @@
             font-style: oblique;
             font-weight: bold;
         }
+
+        .underline {
+            text-decoration: underline;
+        }
     </style>
 
 </head>
@@ -94,17 +98,30 @@
                             <div class="msg">{{ msg }}</div>
                             <div class="field">
                                 <label class="label">Email</label>
-                                <div class="control">
+                                <div class="control has-icons-left has-icons-right">
                                     <input id="username" name="username" type="text" placeholder="Enter Your Username"
                                         class="input" />
+                                    <span class="icon is-small is-left">
+                                        <i data-feather="mail"></i>
+                                    </span>
+                                    <span class="icon is-small is-right">
+                                        <i data-feather="check"></i>
+                                    </span>
                                 </div>
                             </div>
 
                             <div class="field">
                                 <label class="label">Pasword</label>
-                                <div class="control">
+                                <div class="control has-icons-left has-icons-right">
                                     <input id="password" name="password" type="password"
                                         placeholder="Enter Your Password" class="input" />
+                                    <span class="icon is-small is-left">
+                                        <i data-feather="lock"></i>
+                                    </span>
+                                    <span class="icon is-small is-right">
+                                        <i data-feather="eye"></i>
+                                    </span>
+
                                 </div>
                             </div>
                             <div class="control">
@@ -118,8 +135,12 @@
     </div>
 
 
-    <p class="bottom" style="text-align: center;">Dont't have an account? <a class="bottom" href="{{url_for('register')}}"> Sign Up here</a>
+    <p class="bottom" style="text-align: center;">Don't have an account? <a class="bottom underline"
+            href="{{url_for('register')}}"> Sign Up here</a>
     </p>
+    <script>
+        feather.replace()
+    </script>
 
 </body>
 

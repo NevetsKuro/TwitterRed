@@ -11,64 +11,93 @@
     <!-- Scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <style>
+        ::placeholder {
+            color: #FFFFFF;
+            opacity: 1;
+            font-style: oblique;
+            font-weight: bold;
+        }
+
+        .word {
+            color: #FFFFFF;
+            font-style: oblique;
+            font-weight: bold;
+        }
+
+        .bottom {
+            color: #236B8E;
+            font-style: oblique;
+            font-weight: bold;
+        }
+
+        .underline {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 
-<body></br></br></br></br></br>
-    <div align="center">
-        <div align="center" class="border">
+<body></br></br></br>
+    <div>
+        <div class="border">
 
             <div class="columns is-mobile">
                 <div class="column is-4 is-offset-4">
                     <div class="card">
-                        <div class="card-content">
-                            <p class="title" style="text-align: left;">
+                        <header class="card-header">
+                            <p class="card-header-title">
                                 Register
                             </p>
+                        </header>
+                        <div class="card-content">
                             <div class="content">
-                                <form action="{{ url_for('register') }}" method="post"  style="text-align: left;">
+                                <form action="{{ url_for('register') }}" method="post" style="text-align: left;">
                                     <div class="msg">{{ msg }}</div>
                                     <div class="field">
-                                        <p class="control has-icons-left has-icons-right">
-                                            <label class="label">Email</label>
+                                        <label class="label">Email</label>
+                                        <div class="control has-icons-left has-icons-right">
                                             <input class="input" name="email" type="email"
                                                 placeholder="e.g. dummy@gmail.com">
                                             <span class="icon is-small is-left">
-                                                <i class="fas fa-envelope"></i>
+                                                <i data-feather="mail"></i>
                                             </span>
                                             <span class="icon is-small is-right">
-                                                <i class="fas fa-check"></i>
+                                                <i data-feather="check"></i>
                                             </span>
-                                        </p>
+                                        </div>
                                     </div>
                                     <div class="field">
                                         <label class="label">Username</label>
-                                        <p class="control has-icons-left has-icons-right">
+                                        <div class="control has-icons-left has-icons-right">
                                             <input class="input" name="username" type="text"
                                                 placeholder="e.g. John Doe">
                                             <span class="icon is-small is-left">
-                                                <i class="fas fa-user"></i>
+                                                <i data-feather="user"></i>
                                             </span>
                                             <span class="icon is-small is-right">
-                                                <i class="fas fa-check"></i>
+                                                <i data-feather="check"></i>
                                             </span>
-                                        </p>
+                                        </div>
                                     </div>
                                     <div class="field">
                                         <label class="label">Password</label>
-                                        <p class="control has-icons-left">
+                                        <div class="control has-icons-left has-icons-right">
                                             <input class="input" name="password" type="password"
                                                 placeholder="Enter Your Password">
                                             <span class="icon is-small is-left">
-                                                <i class="fas fa-lock"></i>
+                                                <i data-feather="lock"></i>
                                             </span>
-                                        </p>
+                                            <span class="icon is-small is-right">
+                                                <i data-feather="eye"></i>
+                                            </span>
+                                        </div>
                                     </div>
                                     <div class="field">
-                                        <p class="control">
+                                        <div class="control">
                                             <button type="submit" class="button is-success">
                                                 Sign Up
                                             </button>
-                                        </p>
+                                        </div>
                                     </div>
 
                                     </br>
@@ -80,10 +109,14 @@
                 </div>
             </div>
 
-            <p class="bottom" style="text-align: center;">Already have an account? <a class="bottom" href="{{url_for('login')}}"> Sign In here</a>
+            <p class="bottom" style="text-align: center;">Already have an account? <a class="bottom underline"
+                    href="{{url_for('login')}}"> Sign In here</a>
             </p>
         </div>
     </div>
+    <script>
+        feather.replace()
+    </script>
 </body>
 
 </html>
