@@ -187,10 +187,10 @@ def create_app(test_config=None):
         if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
             username = request.form['username']
             password = request.form['password']
-            # Server
-            # https://www.freemysqlhosting.net/account/
-            # un: stevenferns96@gmail.com
-            # pwd: 34Tjq#kYCjxfjUu
+            # New Server
+            # https://remotemysql.com/
+            # un: divisht.avion@hotmail.com
+            # pwd: admin123
             mydb = mysql.connect(
                 host="remotemysql.com",
                 user="yleIVCYChd",
