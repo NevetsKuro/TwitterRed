@@ -192,10 +192,10 @@ def create_app(test_config=None):
             # un: stevenferns96@gmail.com
             # pwd: 34Tjq#kYCjxfjUu
             mydb = mysql.connect(
-                host="sql6.freemysqlhosting.net",
-                user="sql6412839",
-                password="7dUuXcUq5P",
-                database="sql6412839",
+                host="remotemysql.com",
+                user="yleIVCYChd",
+                password="tHGyqy7DMh",
+                database="yleIVCYChd",
                 auth_plugin='mysql_native_password'
             )
             
@@ -232,13 +232,14 @@ def create_app(test_config=None):
             username = request.form['username']
             password = request.form['password']
             email = request.form['email']
-            mydb = mysql.connect(
-                host="sql6.freemysqlhosting.net",
-                user="sql6412839",
-                password="7dUuXcUq5P",
-                database="sql6412839",
+            mydb=mysql.connect(
+                host="remotemysql.com",
+                user="yleIVCYChd",
+                password="tHGyqy7DMh",
+                database="yleIVCYChd",
                 auth_plugin='mysql_native_password'
             )
+            
             cursor = mydb.cursor()
             cursor.execute(
                 'SELECT * FROM users WHERE username = %s', (username,))
